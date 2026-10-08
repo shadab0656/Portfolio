@@ -7,7 +7,15 @@ import BookButton from "./BookButton";
 import { site } from "@/lib/site";
 
 const ease = [0.16, 1, 0.3, 1];
-const crowds = ["weddings", "sangeets", "boardrooms", "college fests", "birthday parties"];
+// Each crowd is a room that is famously hard to crack
+const crowds = [
+  "your strictest chacha",
+  "the bride's nani",
+  "the HR team, on record",
+  "a hall full of backbenchers",
+  "both sides of the shaadi",
+  "even the DJ",
+];
 
 const fadeUp = (delay) => ({
   initial: { opacity: 0, y: 24 },
@@ -23,10 +31,14 @@ function RotatingCrowd() {
   }, []);
 
   return (
-    <motion.p {...fadeUp(0.5)} className="mt-5 font-serif text-[clamp(1.6rem,3.2vw,2.35rem)] leading-[1.15] text-cream/85">
-      <span className="sr-only">Making weddings, sangeets, boardrooms, college fests and birthday parties laugh out loud.</span>
+    <motion.p {...fadeUp(0.5)} className="mt-5 font-poster text-[clamp(1.4rem,2.6vw,2rem)] leading-[1.2] text-cream/85">
+      <span className="sr-only">
+        The comedian who makes your strictest chacha, the bride&apos;s nani, the HR team, a hall full of backbenchers
+        and even the DJ laugh out loud.
+      </span>
       <span aria-hidden>
-        Making{" "}
+        The comedian who makes
+        <br />
         <span className="relative inline-flex overflow-hidden pb-[0.08em] align-bottom">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
@@ -61,7 +73,7 @@ function Bubble({ children, className, delay, rotate = 0, tail = "left", tone = 
         <motion.div
           animate={{ y: [0, -7, 0] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay }}
-          className={`relative whitespace-nowrap rounded-2xl px-4 py-2 font-serif text-lg italic shadow-[0_14px_30px_-10px_rgba(0,0,0,0.6)] sm:text-2xl ${colors}`}
+          className={`relative whitespace-nowrap rounded-2xl px-4 py-1.5 font-hand text-2xl font-bold shadow-[0_14px_30px_-10px_rgba(0,0,0,0.6)] sm:text-2xl ${colors}`}
         >
           {children}
           <span className={`absolute -bottom-1.5 h-3.5 w-3.5 rotate-45 rounded-[2px] ${tone === "ember" ? "bg-ember" : "bg-cream"} ${tail === "left" ? "left-5" : "right-5"}`} />
@@ -158,19 +170,22 @@ export default function Hero() {
             transition={{ duration: 0.2, delay: 0.3 }}
             className="neon-tube neon-flicker inline-flex items-center gap-2.5 rounded-full px-5 py-1.5"
           >
-            <span className="neon font-serif text-xl italic">Live comedy</span>
+            <span className="neon font-hand text-2xl font-bold">On stage tonight</span>
           </motion.div>
 
-          <motion.h1 {...fadeUp(0.35)} className="mt-8 font-serif text-[clamp(2.75rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
-            Shadab <span className="italic">Hussain</span>
+          <motion.h1
+            {...fadeUp(0.35)}
+            className="mt-7 font-poster text-[clamp(2.5rem,5.5vw,4rem)] font-semibold leading-[0.95] tracking-[-0.02em]"
+          >
+            Shadab <span className="font-normal italic">Hussain</span>
             <span className="text-ember">.</span>
           </motion.h1>
 
           <RotatingCrowd />
 
-          <motion.p {...fadeUp(0.65)} className="mt-6 max-w-md text-lg leading-relaxed text-cream/60">
-            Stand-up comedian for weddings, corporate events and college fests across Delhi NCR. He reads every room,
-            from the uncles at the back table to the friends who came only for the DJ.
+          <motion.p {...fadeUp(0.65)} className="mt-6 max-w-md text-lg leading-relaxed text-cream/65">
+            Live stand-up for weddings, corporate nights and college fests across {site.region}. Clean enough for nani,
+            sharp enough for the cousins, and wrapped up before the food gets cold.
           </motion.p>
 
           <motion.div {...fadeUp(0.8)} className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
@@ -181,19 +196,23 @@ export default function Hero() {
                   <path d="M6 4l14 8-14 8z" />
                 </svg>
               </span>
-              Watch a set
+              Watch a set first
             </a>
           </motion.div>
 
-          <motion.dl {...fadeUp(0.95)} className="mt-12 flex max-w-md divide-x divide-cream/10 border-t border-cream/10 pt-6">
+          <motion.p {...fadeUp(0.9)} className="mt-4 -rotate-1 font-hand text-xl text-ember/90">
+            psst… shaadi season dates go first ↑
+          </motion.p>
+
+          <motion.dl {...fadeUp(0.95)} className="mt-10 flex max-w-md divide-x divide-cream/10 border-t border-cream/10 pt-6">
             {[
-              [`${site.years}+`, "Years"],
-              [`${site.shows.toLocaleString("en-IN")}+`, "Shows"],
-              [`${site.instagram.followersK}K+`, "Followers"],
+              [`${site.years}+`, "Years on mic"],
+              [`${site.shows.toLocaleString("en-IN")}+`, "Rooms cracked"],
+              [`${site.instagram.followersK}K+`, "Insta fam"],
             ].map(([value, label]) => (
               <div key={label} className="flex flex-1 flex-col-reverse px-5 first:pl-0">
                 <dt className="eyebrow mt-1 text-cream/45">{label}</dt>
-                <dd className="font-serif text-3xl">{value}</dd>
+                <dd className="font-poster text-3xl font-semibold">{value}</dd>
               </div>
             ))}
           </motion.dl>
@@ -218,10 +237,10 @@ export default function Hero() {
           </motion.div>
 
           <Bubble className="-left-3 top-[14%] sm:-left-16" delay={1.4} rotate={-6} tail="right">
-            HAHAHA!
+            Arey wah! 😂
           </Bubble>
           <Bubble className="-right-2 top-[44%] sm:-right-14" delay={2.1} rotate={5} tone="ember">
-            Encore!
+            Once more!
           </Bubble>
           <ApplauseMeter />
         </div>

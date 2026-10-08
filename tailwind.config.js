@@ -19,7 +19,7 @@ module.exports = {
       fontFamily: {
         poster: ["var(--font-poster)", "Georgia", "serif"],
         hand: ["var(--font-hand)", "cursive"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        serif: ["var(--font-poster)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
