@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track,
+  .neon-flicker { animation: none !important; }
+}
+
+body {
+  background-color: #0D0C0B;
+}
+
+/* Poster inks. Light: inks soak into cream paper (multiply).
+   Dark: inks are screen-printed onto black stock and glow (screen). */
+:root {
+  --paper: 239 232 216;
+  --ink: 27 26 31;
+  --riso: 46 91 186;
+  --accent: 194 56 26;
+  --frame: 247 242 230;
+  --tape: 233 223 196;
+  --tape-a: 0.8;
+  --blend: multiply;
+}
+
+.art-dark {
+  --paper: 19 17 21;
+  --ink: 241 234 217;
+  --riso: 98 140 235;
+  --accent: 255 91 53;
+  --frame: 29 26 31;
+  --tape: 241 234 217;
+  --tape-a: 0.16;
+  --blend: screen;
+}
+
+/* Fine film grain over the whole page so the flat black reads like a stage, not a screen */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: #FF5B35;
+  color: #0D0C0B;
+}
+
+:focus-visible {
+  outline: 2px solid #FF5B35;
+  outline-offset: 3px;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* A tired neon tube: mostly steady, with the odd stutter */
+@keyframes flicker {
+  0%, 17%, 21%, 24%, 52%, 56%, 100% { opacity: 1; }
+  19%, 23%, 54% { opacity: 0.35; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em];
+  }
+
+  .marquee-track {
+    animation: marquee 45s linear infinite;
+  }
+
+  /* Soft stage-light cone falling from above */
+  .beam {
+    background: linear-gradient(to bottom, rgba(255, 226, 186, 0.16), transparent 78%);
+    clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+    filter: blur(28px);
+  }
+
+  /* Classic comedy-club brick wall, drawn as a repeating SVG tile */
+  .bricks {
+    background-color: #120c0a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Crect width='120' height='60' fill='%23120c0a'/%3E%3Crect x='1.5' y='1.5' width='117' height='27' rx='2' fill='%235c2a1d'/%3E%3Crect x='-58.5' y='31.5' width='117' height='27' rx='2' fill='%234d2318'/%3E%3Crect x='61.5' y='31.5' width='117' height='27' rx='2' fill='%2357271b'/%3E%3C/svg%3E");
+    background-size: 120px 60px;
+  }
+
+  .neon {
+    color: #FFE1D6;
+    text-shadow:
+      0 0 3px #FF5B35,
+      0 0 10px #FF5B35,
+      0 0 24px rgba(255, 91, 53, 0.75),
+      0 0 48px rgba(255, 91, 53, 0.45);
+  }
+
+  .neon-tube {
+    border: 1.5px solid #FFB9A5;
+    box-shadow:
+      0 0 6px #FF5B35,
+      0 0 18px rgba(255, 91, 53, 0.55),
+      inset 0 0 8px rgba(255, 91, 53, 0.45);
+  }
+
+  .neon-flicker {
+    animation: flicker 7s infinite;
+  }
+
+  /* ---------- Risograph poster (/art) ---------- */
+
+  /* Torn paper bottom edge */
+  .torn {
+    clip-path: polygon(0 0, 100% 0, 100% 94%, 96% 97%, 91% 94.5%, 86% 98%, 80% 95%, 74% 97.5%, 68% 94%, 62% 98%, 55% 95%, 49% 97%, 43% 94.5%, 37% 98.5%, 31% 95%, 25% 97%, 19% 94%, 13% 98%, 7% 95%, 3% 97.5%, 0 95%);
+  }
+
+  /* Soft, rounded Fraunces without the wonky alternate letters */
+  .font-poster {
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+
+  .drop-cap::first-letter {
+    float: left;
+    margin: 0.05em 0.12em 0 0;
+    font-family: var(--font-poster), Georgia, serif;
+    font-size: 4.2em;
+    line-height: 0.8;
+    color: #FF5B35;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-cream/15 bg-cream/[0.03] px-4 py-3.5 text-base text-cream placeholder:text-cream/35 transition-colors hover:border-cream/30 focus:border-ember focus:outline-none;
+  }
+}
