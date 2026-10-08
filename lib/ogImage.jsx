@@ -7,7 +7,7 @@ export const ogSize = { width: 1200, height: 630 };
 
 // The preview card shown when the site is shared on WhatsApp, Instagram, LinkedIn, X, etc.
 export async function renderOg({ kicker = "Stand-up comedian", title = site.name, line = "Book for weddings, corporate events & college fests across Delhi NCR" } = {}) {
-  const photo = await readFile(join(process.cwd(), "public", "profile.jpg"));
+  const photo = await readFile(join(process.cwd(), "public", "profile.jpeg"));
   const src = `data:image/jpeg;base64,${photo.toString("base64")}`;
 
   return new ImageResponse(

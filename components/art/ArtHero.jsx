@@ -27,12 +27,13 @@ const fadeUp = (delay) => ({
 export function InkButton({
   children = "Book for Wedding Party / Event",
   className = "",
+  city,
 }) {
   const { open } = useBooking();
   return (
     <button
       type="button"
-      onClick={open}
+      onClick={() => open(city)}
       className={`rounded-full border-2 border-ink bg-ink px-6 py-3.5 font-medium text-paper shadow-[4px_4px_0_#FF5B35] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_#FF5B35] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_#FF5B35] ${className}`}
     >
       {children}
@@ -209,7 +210,7 @@ export default function ArtHero() {
           <div className="relative border-2 border-ink bg-frame p-3 shadow-[10px_12px_0_rgb(var(--ink)/0.12)]">
             <div className="relative aspect-[4/5]">
               <RisoPhoto
-                src="/profile.jpg"
+                src="/profile.jpeg"
                 alt="Shadab Hussain, stand-up comedian"
                 className="absolute inset-0"
               />

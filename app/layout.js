@@ -39,13 +39,13 @@ export const metadata = {
   openGraph: {
     title: `${site.name} | Stand-up Comedian`,
     description: site.tagline,
-    images: ["/profile.jpg"],
+    images: ["/profile.jpeg"],
     type: "website",
   },
 };
 
 export const viewport = {
-  themeColor: "#1C1A3A",
+  themeColor: "#131115",
   width: "device-width",
   initialScale: 1,
 };

@@ -16,7 +16,7 @@ const reveal = (delay = 0) => ({
   transition: { duration: 0.8, ease, delay },
 });
 
-function PageNote({ page, children }) {
+export function PageNote({ page, children }) {
   return (
     <p className="font-hand text-2xl text-accent">
       p. {page} <span className="text-ink/40">&mdash;</span> {children}
@@ -24,7 +24,7 @@ function PageNote({ page, children }) {
   );
 }
 
-function Heading({ children, className = "" }) {
+export function Heading({ children, className = "" }) {
   return (
     <motion.h2 {...reveal()} className={`font-poster text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.015em] text-ink ${className}`}>
       {children}
@@ -116,15 +116,19 @@ export function ArtAbout() {
 
 /* ---------- Watch ---------- */
 
-export function ArtWatch() {
+export function ArtWatch({ page = "02", heading }) {
   return (
     <section id="watch" className="border-t-2 border-dashed border-ink/20 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <PageNote page="02">the evidence</PageNote>
+            <PageNote page={page}>the evidence</PageNote>
             <Heading className="mt-4">
-              Don&apos;t take <span className="italic">our</span> word for it.
+              {heading ?? (
+                <>
+                  Don&apos;t take <span className="italic">our</span> word for it.
+                </>
+              )}
             </Heading>
           </div>
           <a
@@ -207,18 +211,19 @@ export function ArtFollow() {
 
 const helpful = ["City and venue", "How many guests", "Set length", "Event date"];
 
-export function ArtBook() {
+export function ArtBook({ page = "04", city }) {
   return (
     <section id="book" className="border-t-2 border-dashed border-ink/20 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div>
-          <PageNote page="04">the important bit</PageNote>
+          <PageNote page={page}>the important bit</PageNote>
           <Heading className="mt-4">
-            Make your event <span className="italic text-riso">the one they talk about.</span>
+            {city ? <>Book Shadab in {city.name}. </> : "Make your event "}
+            <span className="italic text-riso">{city ? "Make it the one they talk about." : "the one they talk about."}</span>
           </Heading>
           <motion.p {...reveal(0.1)} className="mt-7 max-w-md text-lg leading-relaxed text-ink/75">
-            Weddings, sangeets, corporate nights, college fests and birthdays. Share a few details and Shadab will
-            get back to you about availability and fees.
+            Weddings, sangeets, corporate nights, college fests and birthdays{city ? ` in ${city.name}` : ""}. Share a
+            few details and Shadab will get back to you about availability and fees.
           </motion.p>
 
           <motion.div {...reveal(0.15)} className="mt-10">
@@ -260,7 +265,7 @@ export function ArtBook() {
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ember">No. {site.shows + 1}</p>
             </div>
             <div className="px-7 pb-9 pt-8 sm:px-10">
-              <BookingForm idPrefix="art" />
+              <BookingForm idPrefix="art" defaultCity={city?.name} />
             </div>
           </div>
         </motion.div>
@@ -281,7 +286,7 @@ export function ArtFooter() {
         <p className="font-poster text-[clamp(2.5rem,6vw,4.5rem)] font-semibold italic leading-none">
           <Misprint>You&apos;ve been great.</Misprint>
         </p>
-        <p className="mt-3 -rotate-2 font-hand text-4xl text-accent">goodnight!</p>
+        <p className="mt-3 -rotate-2 font-hand text-4xl text-accent">Thanks For Visiting!</p>
         <div className="mx-auto mt-4 w-48">
           <Squiggle className="h-4 w-full" color={INK.blue} />
         </div>

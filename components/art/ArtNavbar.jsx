@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { InkButton } from "./ArtHero";
 
-const links = [
+const homeLinks = [
   ["#about", "Backstory"],
   ["#watch", "Watch"],
   ["#follow", "Follow"],
   ["#book", "Book"],
 ];
 
-export default function ArtNavbar() {
+// Other pages pass their own section links, and logoHref="/" so the logo goes home
+export default function ArtNavbar({ links = homeLinks, logoHref = "#top", city }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -44,7 +45,7 @@ export default function ArtNavbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
-        <a href="#top" className="font-hand text-3xl leading-none text-ink">
+        <a href={logoHref} className="font-hand text-3xl leading-none text-ink">
           Shadab<span className="text-ember">!</span>
         </a>
 
@@ -61,7 +62,7 @@ export default function ArtNavbar() {
               </li>
             ))}
           </ul>
-          <InkButton className="hidden !px-4 !py-2 text-sm sm:inline-block">
+          <InkButton city={city} className="hidden !px-4 !py-2 text-sm sm:inline-block">
             Book a show
           </InkButton>
           <button
@@ -118,7 +119,7 @@ export default function ArtNavbar() {
                 </motion.li>
               ))}
               <li className="pt-5" onClick={() => setMenuOpen(false)}>
-                <InkButton className="w-full !py-3 text-sm">Book a show</InkButton>
+                <InkButton city={city} className="w-full !py-3 text-sm">Book a show</InkButton>
               </li>
             </ul>
           </motion.div>

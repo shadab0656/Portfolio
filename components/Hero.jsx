@@ -226,7 +226,7 @@ export default function Hero() {
             className="relative aspect-[4/5] overflow-hidden rounded-b-[1.5rem] rounded-t-full border border-cream/15 bg-surface shadow-[0_40px_120px_-30px_rgba(255,120,70,0.45)]"
           >
             <Image
-              src="/profile.jpg"
+              src="/profile.jpeg"
               alt="Shadab Hussain, stand-up comedian"
               fill
               priority

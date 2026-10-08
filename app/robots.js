@@ -7,7 +7,7 @@ export default function robots() {
         userAgent: "*",
         allow: "/",
         // API endpoints and the draft poster designs shouldn't show up in search
-        disallow: ["/api/", "/art", "/art-dark"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${site.url}/sitemap.xml`,
